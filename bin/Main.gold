@@ -32,9 +32,9 @@ procedure main(args:String[]) begin
 	  
 
   			
-	coder:= ReplaceForxyz.createTransducer(Alph)
+coder:= Coder.createTransducer(Alph)
    
-   deCoder:=InvReplaceForxyz.createTransducer(Alph)
+deCoder:=Decoder.createTransducer(Alph)
    
     
     

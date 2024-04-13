@@ -1,0 +1,143 @@
+using gold.**
+// ===============================
+// Proyecto 2 (ISIS1106 - Lenguajes y Máquinas)
+// Realizado por:
+// Carol Florido - 202111430
+// Nicolás Rincón - 202021963
+//
+// Basado en el trabajo original de Silvia Takahashi
+// ===============================
+
+// Finite State Transducer that implements a Coder
+// Input: Strings of the form ⍸_1!⍸_2!⍸_3!‥.!⍸_{2n-1}!⍸_{2n}# where ⍸_i∈('a'‥.'d')* of length 3, ∀i:0≤i≤2n
+//  		 and the three characters that compose any ⍸_i are not necessarily distinct.
+
+// Output: Strings of the form ρ_1!ρ_2!ρ_3!‥.!ρ_{2n-1}!ρ_{2n}# where ρ_i=⍸_i if i is odd, ρ_i=⍸_i if i is even
+//		   and ρ_i≠⍸_{i-1}, and ρ_i="*" if i is even and ρ_i=⍸_{i-1}.
+// ===============================
+
+var  Alph 
+
+procedure main(args:String[]) begin
+	// Reads the given alphabet or uses a cat basic alphabet for default
+	if args.length=0 then Alph:= {'a','c','t'}
+	else
+		Alph := {args[0].charAt(i) | 0≤i<args[0].length()}\{'$','#'}
+    end
+	// Create a Transducer object over the alphabet given in the input
+	coder:=createTransducer(Alph)
+	print "Input strings of the form ⍸_1!⍸_2!...!⍸_2n-1!⍸_2n# with ⍸_i over " + Alph
+	// Utilities by default in Gold:
+	Utilities.test(coder)
+end
+
+// Function that creates a transducer over a given alphabet
+function createTransducer(A):ITransducer begin
+	// Given the alphabet with letters spanning from 'a' to 'd', A:=('a'‥'d')
+	M0 := {true,false} 	// Condition that tests whether we are in an even ⍸_i or not
+	M1 := A					// Represents the reading of the first character in an ⍸
+	M2 := A×A				// Represents the reading of the first two characters in an ⍸
+	M3 := A×A×A			// Represents the reading of the three characters in an ⍸
+	Ls := ({false}×M1)∪({false}×M2)∪({false}×M3)	// Initial different states (⍸_1)
+	
+	// States are created in the following way:
+	// In general ([p1,p2,p3],T/F,[c1,c2,c3]) where p_i are the characters of the previous ⍸, that is ⍸_{i-1},
+	// c_i are the characters of the current ⍸, that is ⍸_i, and T/F whether i is even or not
+	// Exceptions are states associated with ⍸_1 where there are no previous ⍸ to take into account
+	// The states also include a Starting State (I) Final State (F) and an Error State (err)
+	Q := Ls∪(M3×M0)∪(M3×M0×M1)∪(M3×M0×M2)∪(M3×M0×M3)∪{"err","F","I"}
+	print Q
+	
+	// The input alphabet is A union with separators ("#" and "!")
+	Σ := A ∪ {'#','!'}
+	// The output alphabet is the input alphabet union with special replacement "*"
+	O := Σ ∪ {'*'}
+	// The initial state is the one marked as "I"
+	q₀ := "I"
+	// The final state is the one marked as "F"
+	F := {"F"} 
+	
+	// The transducer is constructed as a 6-tuple with transition function g and output function h
+	return GDeterministicTransducer(Q,Σ,O,q₀,F,δ,g,h)
+end
+
+// We are designing a Mealy Automaton, so the State Printing Function is null
+g(x):= λ
+
+// Transition Function that receives a state and a next-to-read character
+function δ(q,σ) begin
+	var p1: String
+	var p2: String
+	var p3: String
+	var c1: String
+	var c2: String
+	var c3: String
+	var even: boolean
+	
+	// The initial states move depending on which character is read
+	if q = "I" and σ∈Alph 
+		then return ⟨false,σ⟩
+	elseif q = ⟨false,⟨c1⟩⟩ and σ∈Alph 
+		then return ⟨false,⟨c1,σ⟩⟩
+	elseif q = ⟨false,⟨c1,c2⟩⟩ and σ∈Alph 
+		then return ⟨false,⟨c1,c2,σ⟩⟩
+	// States that have read a full ⍸ move to specific states in which currents become previous
+	// If we read a ! then we change from odd to even or even to odd
+	elseif (q = ⟨even,⟨c1,c2,c3⟩⟩ or q = ⟨⟨p1,p2,p3⟩,even,⟨c1,c2,c3⟩⟩) and σ='!'
+		then return ⟨⟨c1,c2,c3⟩,!even⟩
+	// States that are even and followed by a # go to the Final State
+	elseif q = ⟨⟨p1,p2,p3⟩,even,⟨c1,c2,c3⟩⟩ and even = true and σ='#'
+		then return "F"
+	// When we start reading a ⍸, states will go to the next one that has been read
+	elseif q = ⟨⟨p1,p2,p3⟩,even⟩ and σ∈Alph 
+		then return ⟨⟨p1,p2,p3⟩,even,σ⟩
+	elseif q = ⟨⟨p1,p2,p3⟩,even,⟨c1⟩⟩ and σ∈Alph 
+		then return ⟨⟨p1,p2,p3⟩,even,⟨c1,σ⟩⟩
+	elseif q = ⟨⟨p1,p2,p3⟩,even,⟨c1,c2⟩⟩ and σ∈Alph 
+		then return ⟨⟨p1,p2,p3⟩,even,⟨c1,c2,σ⟩⟩		
+	// If the state is the Final State, anything after it will turn it into an Error
+	elseif q = "F" 
+		then return "err"
+	// If the state is the Error State, it will always remain in said state
+	elseif q = "err" 
+		then return "err"
+	// In any other case, it has to be an error
+	else
+		return "err"
+	end
+end
+
+  
+function h(q,σ) begin
+    var s:String
+	if q = "E" or q ="F" then
+		return ""
+   elseif |q| = 1 then
+      s:= q[0]
+   	  if s.length()  = 0 then
+        return   	""+σ
+      elseif s.length()  = 1 and σ≠s.charAt(0)  then
+        return   		""+σ
+      elseif s.length()  = 2 and σ≠s.charAt(0) and σ≠s.charAt(1) then
+        return   		""+σ
+      elseif s.length() = 3  and σ =':' then
+   	      return   	":"
+      else  return ""
+   	   end
+   	else // |q| = 2
+   	  s,p:= q[0],q[1]
+   	  if  σ='#' then return s.substring(0,p) +"#"
+   	  elseif p=0 and σ=s.charAt(0) then return  ""
+   	  elseif p=0  then return ""+σ
+   	  elseif p=1 and  σ=s.charAt(0) then return s.charAt(0)
+   	  elseif p=1 and  σ=s.charAt(1) then return  ""
+   	  elseif p=1 then return ""+s.charAt(0)+σ
+   	  elseif p=2 and  σ=s.charAt(0) then return ""+s.charAt(0)+s.charAt(1)
+   	  elseif p=2 and  σ=s.charAt(2) then return "$"
+   	  else return	 ""+s.charAt(0)+s.charAt(1)+σ
+   	  end
+end
+end
+
+
+ 
