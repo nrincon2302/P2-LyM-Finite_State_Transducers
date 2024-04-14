@@ -56,24 +56,24 @@ public final class Coder {
     $try:try {
       $line=23;
       if ($opEqualY($invokeField("length",args),0)) {
-        $line=23;
+        $line=24;
         Alph=$fix(GCollections.asSet('a','c','t'));
       }
       else {
-        $line=25;
+        $line=26;
         gold.structures.set.ISet $v1=$newSet();
         int $v3=$int(0);
         int $v4=$int($invokeMethod("length",((java.lang.String[])args)[$int(0)],new Object[]{}))-1;
         $v2:for (int i=$v3; i<=$v4; i++) {
           $v1.add($invokeMethod("charAt",((java.lang.String[])args)[$int(0)],new Object[]{i}));
         }
-        Alph=$fix($opDiffeY($v1,GCollections.asSet('$','#')));
+        Alph=$fix($opDiffeY($v1,GCollections.asSet('!','#')));
       }
-      $line=28;
-      Object coder=$fix(Coder.createTransducer(Alph));
       $line=29;
+      Object coder=$fix(Coder.createTransducer(Alph));
+      $line=30;
       System.out.println($message(new Object[]{$opAdditY("Input strings of the form w_1!w_2!...!w_2n-1!w_2n# with w_i over ",Alph)}));
-      $line=31;
+      $line=32;
       Utilities.test($cast(gold.structures.automaton.IAutomaton.class,coder));
     }
     catch (Throwable $throwable) {
@@ -84,32 +84,48 @@ public final class Coder {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=37;
-      Object M0=$fix(GCollections.asSet(true,false));
       $line=38;
-      Object M1=$fix(A);
+      Object M0=$fix(GCollections.asSet(true,false));
       $line=39;
-      Object M2=$fix($opCartsY(new Object[]{A,A}));
+      gold.structures.set.ISet $v5=$newSet();
+      $v6:for (Object p:GCollections.unmodifiableCollection(A)) {
+        $v5.add($opAdditY("",p));
+      }
+      Object M1=$fix($v5);
       $line=40;
-      Object M3=$fix($opCartsY(new Object[]{A,A,A}));
+      gold.structures.set.ISet $v7=$newSet();
+      $v8:for (Object p:GCollections.unmodifiableCollection(A)) {
+        for (Object q:GCollections.unmodifiableCollection(A)) {
+          $v7.add($opAdditY($opAdditY("",p),q));
+        }
+      }
+      Object M2=$fix($v7);
       $line=41;
-      Object Ls=$fix($opUnionY($opUnionY($opCartsY(new Object[]{GCollections.asSet(false),M1}),$opCartsY(new Object[]{GCollections.asSet(false),M2})),$opCartsY(new Object[]{GCollections.asSet(false),M3})));
-      $line=48;
-      Object Q=$fix($opUnionY($opUnionY($opUnionY($opUnionY($opUnionY(Ls,$opCartsY(new Object[]{M3,M0})),$opCartsY(new Object[]{M3,M0,M1})),$opCartsY(new Object[]{M3,M0,M2})),$opCartsY(new Object[]{M3,M0,M3})),GCollections.asSet("err","F","I")));
+      gold.structures.set.ISet $v9=$newSet();
+      $v10:for (Object p:GCollections.unmodifiableCollection(A)) {
+        for (Object q:GCollections.unmodifiableCollection(A)) {
+          for (Object r:GCollections.unmodifiableCollection(A)) {
+            $v9.add($opAdditY($opAdditY($opAdditY("",p),q),r));
+          }
+        }
+      }
+      Object M3=$fix($v9);
+      $line=42;
+      Object Ls=$fix($opUnionY($opUnionY($opCartsY(new Object[]{GCollections.asSet(""),GCollections.asSet(false),M1}),$opCartsY(new Object[]{GCollections.asSet(""),GCollections.asSet(false),M2})),$opCartsY(new Object[]{GCollections.asSet(""),GCollections.asSet(false),M3})));
       $line=49;
-      System.out.println($message(new Object[]{Q}));
-      $line=52;
+      Object Q=$fix($opUnionY($opUnionY($opUnionY($opUnionY($opUnionY(Ls,$opCartsY(new Object[]{M3,GCollections.asSet(true,false),GCollections.asSet("")})),$opCartsY(new Object[]{M3,GCollections.asSet(true,false),M1})),$opCartsY(new Object[]{M3,GCollections.asSet(true,false),M2})),$opCartsY(new Object[]{M3,GCollections.asSet(true,false),M3})),GCollections.asSet("err","F","I")));
+      $line=53;
       Object \u03A3=$fix($opUnionY(A,GCollections.asSet('#','!')));
-      $line=54;
+      $line=55;
       Object O=$fix($opUnionY(\u03A3,GCollections.asSet('*')));
-      $line=56;
+      $line=57;
       Object q_0=$fix("I");
-      $line=58;
+      $line=59;
       Object F=$fix(GCollections.asSet("F"));
-      $line=61;
+      $line=62;
       $result=$invokeConstructor(GDeterministicTransducer.class,new Object[]{Q,\u03A3,O,q_0,F,new GMethod(Coder.class,"\u03B4"),new GMethod(Coder.class,"g"),new GMethod(Coder.class,"h")});
       if (true) break $try;
-      $line=62;
+      $line=63;
       $rethrow(new RuntimeException("The function \"createTransducer(A:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -123,7 +139,7 @@ public final class Coder {
     $try:try {
       $result="";
       if (true) break $try;
-      $line=65;
+      $line=66;
       $rethrow(new RuntimeException("The function \"g(x:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -135,134 +151,116 @@ public final class Coder {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=69;
-      Object p1=null;
-      p1=$defaultValue(Object.class);
       $line=70;
-      Object p2=null;
-      p2=$defaultValue(Object.class);
+      String c=null;
+      c=$defaultValue(String.class);
       $line=71;
-      Object p3=null;
-      p3=$defaultValue(Object.class);
-      $line=72;
-      Object c1=null;
-      c1=$defaultValue(Object.class);
-      $line=73;
-      Object c2=null;
-      c2=$defaultValue(Object.class);
+      c=$cast(String.class,$fix(""));
       $line=74;
-      Object c3=null;
-      c3=$defaultValue(Object.class);
-      $line=75;
-      Boolean even=null;
-      even=$defaultValue(Boolean.class);
-      $line=78;
       if (($opEqualY(q,"I")&&$opMembrY(\u03C3,Alph))) {
-        $line=79;
-        System.out.println($message(new Object[]{q}));
-        $line=79;
-        $result=GCollections.asList(false,\u03C3);
+        $line=75;
+        c=$cast(String.class,$fix($opAdditY(c,\u03C3)));
+        $line=75;
+        $result=GCollections.asList("",false,c);
         if (true) break $try;
       }
       else {
-        $line=81;
-        if (($opEqualY(q,GCollections.asList(false,c1))&&$opMembrY(\u03C3,Alph))) {
-          $line=82;
-          System.out.println($message(new Object[]{q}));
-          $line=82;
-          $result=GCollections.asList(false,GCollections.asList(c1,\u03C3));
+        $line=77;
+        if (($opEqualY(q,"F")&&!$opEqualY(\u03C3,""))) {
+          $line=78;
+          $result="err";
           if (true) break $try;
         }
         else {
-          $line=83;
-          if (($opEqualY(q,GCollections.asList(false,GCollections.asList(c1,c2)))&&$opMembrY(\u03C3,Alph))) {
-            $line=84;
-            System.out.println($message(new Object[]{q}));
-            $line=84;
-            $result=GCollections.asList(false,GCollections.asList(c1,c2,\u03C3));
+          $line=80;
+          if ($opEqualY(q,"err")) {
+            $line=81;
+            $result="err";
             if (true) break $try;
           }
           else {
-            $line=88;
-            if (($bool(($opEqualY(q,GCollections.asList(even,GCollections.asList(c1,c2,c3)))||$opEqualY(q,GCollections.asList(GCollections.asList(p1,p2,p3),even,GCollections.asList(c1,c2,c3)))))&&$opEqualY(\u03C3,'!'))) {
-              $line=89;
-              System.out.println($message(new Object[]{q}));
-              $line=89;
-              $result=GCollections.asList(GCollections.asList(c1,c2,c3),!$bool(even));
+            $line=84;
+            $result="err";
+            if (true) break $try;
+          }
+        }
+      }
+      $line=86;
+      $rethrow(new RuntimeException("The function \"\u03B4(q:Object,\u03C3:Object)\" did not return a value."));
+    }
+    catch (Throwable $throwable) {
+      $rethrow($throwable,Coder.class,"\u03B4",$line);
+    }
+    return $result;
+  }
+  public static Object \u03B4(java.lang.Iterable $v11, Object \u03C3) {
+    int $line=0;
+    Object $result=null;
+    $try:try {
+      java.util.Iterator $v12=GCollections.unmodifiableCollection($v11).iterator();
+      Object p=$v12.next();
+      Object even=$v12.next();
+      Object c=$v12.next();
+      $line=89;
+      String new_p=null;
+      new_p=$defaultValue(String.class);
+      $line=90;
+      String new_c=null;
+      new_c=$defaultValue(String.class);
+      $line=91;
+      new_p=$cast(String.class,$fix(""));
+      $line=92;
+      new_c=$cast(String.class,$fix(""));
+      $line=95;
+      if (((($opEqualY(p,"")&&$opEqualY(even,false))&&!$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opMembrY(\u03C3,Alph))) {
+        $line=96;
+        new_c=$cast(String.class,$fix($opAdditY(c,\u03C3)));
+        $line=96;
+        $result=GCollections.asList(p,false,new_c);
+        if (true) break $try;
+      }
+      else {
+        $line=100;
+        if (((!$opEqualY(p,"")&&$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opEqualY(\u03C3,'!'))) {
+          $line=101;
+          new_p=$cast(String.class,$fix(c));
+          $line=101;
+          $result=GCollections.asList(new_p,!$bool(even),new_c);
+          if (true) break $try;
+        }
+        else {
+          $line=103;
+          if ((((!$opEqualY(p,"")&&$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opEqualY(even,true))&&$opEqualY(\u03C3,'#'))) {
+            $line=104;
+            $result="F";
+            if (true) break $try;
+          }
+          else {
+            $line=107;
+            if (((!$opEqualY(p,"")&&!$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opMembrY(\u03C3,Alph))) {
+              $line=108;
+              new_c=$cast(String.class,$fix($opAdditY(c,\u03C3)));
+              $line=108;
+              $result=GCollections.asList(p,even,new_c);
               if (true) break $try;
             }
             else {
-              $line=91;
-              if ((($opEqualY(q,GCollections.asList(GCollections.asList(p1,p2,p3),even,GCollections.asList(c1,c2,c3)))&&$opEqualY(even,true))&&$opEqualY(\u03C3,'#'))) {
-                $line=92;
-                System.out.println($message(new Object[]{q}));
-                $line=92;
-                $result="F";
-                if (true) break $try;
+              $line=112;
+              if ($opEqualY(p,"bcb")) {
+                $line=113;
+                System.out.println($message(new Object[]{GCollections.asList(p,even,c)}));
+                $line=114;
+                System.out.println($message(new Object[]{$opAdditY("simbolo: ",\u03C3)}));
               }
-              else {
-                $line=95;
-                if (($opEqualY(q,GCollections.asList(GCollections.asList(p1,p2,p3),even))&&$opMembrY(\u03C3,Alph))) {
-                  $line=96;
-                  System.out.println($message(new Object[]{q}));
-                  $line=96;
-                  $result=GCollections.asList(GCollections.asList(p1,p2,p3),even,\u03C3);
-                  if (true) break $try;
-                }
-                else {
-                  $line=97;
-                  if (($opEqualY(q,GCollections.asList(GCollections.asList(p1,p2,p3),even,c1))&&$opMembrY(\u03C3,Alph))) {
-                    $line=98;
-                    System.out.println($message(new Object[]{q}));
-                    $line=98;
-                    $result=GCollections.asList(GCollections.asList(p1,p2,p3),even,GCollections.asList(c1,\u03C3));
-                    if (true) break $try;
-                  }
-                  else {
-                    $line=99;
-                    if (($opEqualY(q,GCollections.asList(GCollections.asList(p1,p2,p3),even,GCollections.asList(c1,c2)))&&$opMembrY(\u03C3,Alph))) {
-                      $line=100;
-                      System.out.println($message(new Object[]{q}));
-                      $line=100;
-                      $result=GCollections.asList(GCollections.asList(p1,p2,p3),even,GCollections.asList(c1,c2,\u03C3));
-                      if (true) break $try;
-                    }
-                    else {
-                      $line=103;
-                      if (($opEqualY(q,"F")&&!$opEqualY(\u03C3,""))) {
-                        $line=104;
-                        System.out.println($message(new Object[]{q}));
-                        $line=104;
-                        $result="err";
-                        if (true) break $try;
-                      }
-                      else {
-                        $line=106;
-                        if ($opEqualY(q,"err")) {
-                          $line=107;
-                          System.out.println($message(new Object[]{q}));
-                          $line=107;
-                          $result="err";
-                          if (true) break $try;
-                        }
-                        else {
-                          $line=110;
-                          System.out.println($message(new Object[]{q}));
-                          $line=110;
-                          $result="err";
-                          if (true) break $try;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              $line=116;
+              $result="err";
+              if (true) break $try;
             }
           }
         }
       }
-      $line=112;
-      $rethrow(new RuntimeException("The function \"\u03B4(q:Object,\u03C3:Object)\" did not return a value."));
+      $line=118;
+      $rethrow(new RuntimeException("The function \"\u03B4(\u27E8p,even,c\u27E9:java.lang.Iterable,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
       $rethrow($throwable,Coder.class,"\u03B4",$line);
@@ -273,58 +271,88 @@ public final class Coder {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=116;
-      String p1=null;
-      p1=$defaultValue(String.class);
-      $line=117;
-      String p2=null;
-      p2=$defaultValue(String.class);
-      $line=118;
-      String p3=null;
-      p3=$defaultValue(String.class);
-      $line=119;
-      String c1=null;
-      c1=$defaultValue(String.class);
-      $line=120;
-      String c2=null;
-      c2=$defaultValue(String.class);
-      $line=121;
-      String c3=null;
-      c3=$defaultValue(String.class);
-      $line=122;
+      $line=123;
+      Object output=$fix("");
+      $line=124;
+      String p=null;
+      p=$defaultValue(String.class);
+      $line=125;
+      String c=null;
+      c=$defaultValue(String.class);
+      $line=126;
       Boolean even=null;
       even=$defaultValue(Boolean.class);
-      $line=128;
-      if ($bool(($opEqualY(q,GCollections.asList(even,GCollections.asList(c1,c2,c3)))||$opEqualY(q,GCollections.asList(GCollections.asList(p1,p2,p3),even,GCollections.asList(c1,c2,c3)))))) {
-        $line=129;
-        if (($opEqualY(\u03C3,'!')&&$opEqualY(even,false))) {
-          $line=130;
-          $result=$opAdditY($opAdditY($opAdditY(c1,c2),c3),\u03C3);
+      $line=129;
+      if ($opEqualY(q,"I")) {
+        $line=130;
+        $result="";
+        if (true) break $try;
+      }
+      else {
+        $line=131;
+        if ($opEqualY(q,"err")) {
+          $line=132;
+          $result="";
           if (true) break $try;
         }
         else {
-          $line=131;
-          if (($bool(($opEqualY(\u03C3,'!')||$opEqualY(\u03C3,'#')))&&$opEqualY(even,true))) {
-            $line=132;
-            if ($bool((($opEqualY(p1,c1)&&$opEqualY(p2,c2))&&$opEqualY(p3,c3)))) {
-              $line=133;
-              $result=$opAdditY('*',\u03C3);
+          $line=134;
+          if ($opEqualY($opAbsolY(q),3)) {
+            $line=135;
+            p=$cast(String.class,$fix($getArrayValue(q,new Object[]{0})));
+            $line=136;
+            even=$cast(Boolean.class,$fix($getArrayValue(q,new Object[]{1})));
+            $line=137;
+            c=$cast(String.class,$fix($getArrayValue(q,new Object[]{2})));
+            $line=143;
+            if ((($opEqualY(\u03C3,'!')&&$opEqualY(even,false))&&$opEqualY(((java.lang.String)c).length(),3))) {
+              $line=144;
+              output=$fix($opAdditY($opAdditY(output,c),\u03C3));
+              $line=144;
+              $result=output;
               if (true) break $try;
             }
             else {
-              $line=135;
-              $result=$opAdditY($opAdditY($opAdditY(c1,c2),c3),\u03C3);
+              $line=145;
+              if ((($bool(($opEqualY(\u03C3,'!')||$opEqualY(\u03C3,'#')))&&$opEqualY(even,true))&&$opEqualY(((java.lang.String)c).length(),3))) {
+                $line=146;
+                if ($opEqualY(p,c)) {
+                  $line=147;
+                  output=$fix($opAdditY($opAdditY(output,"*"),\u03C3));
+                  $line=147;
+                  $result=output;
+                  if (true) break $try;
+                }
+                else {
+                  $line=149;
+                  output=$fix($opAdditY($opAdditY(output,c),\u03C3));
+                  $line=149;
+                  $result=output;
+                  if (true) break $try;
+                }
+              }
+              else {
+                $line=153;
+                $result="";
+                if (true) break $try;
+              }
+            }
+          }
+          else {
+            $line=157;
+            if ($opEqualY(q,"F")) {
+              $line=158;
+              $result="";
               if (true) break $try;
+            }
+            else {
+              $line=162;
+              System.out.println($message(new Object[]{" -> Cannot encode the string. Error Found!!"}));
             }
           }
         }
       }
-      else {
-        $line=140;
-        $result="";
-        if (true) break $try;
-      }
-      $line=142;
+      $line=164;
       $rethrow(new RuntimeException("The function \"h(q:Object,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {

@@ -1,4 +1,3 @@
-using gold.**
 // ===============================
 // Proyecto 2 (ISIS1106 - Lenguajes y Máquinas)
 // Realizado por:
@@ -16,13 +15,15 @@ using gold.**
 //		   and ρ_i≠⍸_{i-1}, and ρ_i="*" if i is even and ρ_i=⍸_{i-1}.
 // ===============================
 
-var  Alph 
+using gold.**
 
+var Alph
 procedure main(args:String[]) begin
 	// Reads the given alphabet or uses a cat basic alphabet for default
-	if args.length=0 then Alph:= {'a','c','t'}
+	if args.length=0 then 
+		Alph:= {'a','c','t'}
 	else
-		Alph := {args[0].charAt(i) | 0≤i<args[0].length()}\{'$','#'}
+		Alph := {args[0].charAt(i) | 0≤i<args[0].length()}\{'!','#'}
     end
 	// Create a Transducer object over the alphabet given in the input
 	coder:=createTransducer(Alph)
@@ -34,20 +35,20 @@ end
 // Function that creates a transducer over a given alphabet
 function createTransducer(A):ITransducer begin
 	// Given the alphabet with letters spanning from 'a' to 'd', A:=('a'‥'d')
-	M0 := {true,false} 	// Condition that tests whether we are in an even ⍸_i or not
-	M1 := A					// Represents the reading of the first character in an ⍸
-	M2 := A×A				// Represents the reading of the first two characters in an ⍸
-	M3 := A×A×A			// Represents the reading of the three characters in an ⍸
-	Ls := ({false}×M1)∪({false}×M2)∪({false}×M3)	// Initial different states (⍸_1)
+	M0 := {true,false} 				// Condition that tests whether we are in an even ⍸_i or not
+	M1 := {""+p|p∈A}					// Represents the reading of the first character in an ⍸
+	M2 := {""+p+q|p∈A,q∈A}			// Represents the reading of the first two characters in an ⍸
+	M3 := {""+p+q+r|p∈A,q∈A,r∈A}	// Represents the reading of the three characters in an ⍸
+	Ls := ({λ}×{false}×M1)∪({λ}×{false}×M2)∪({λ}×{false}×M3)	// Initial different states (⍸_1)
 	
 	// States are created in the following way:
-	// In general ([p1,p2,p3],T/F,[c1,c2,c3]) where p_i are the characters of the previous ⍸, that is ⍸_{i-1},
+	// In general (p1p2p3, T/F, c1c2c3) where p_i are the characters of the previous ⍸, that is ⍸_{i-1},
 	// c_i are the characters of the current ⍸, that is ⍸_i, and T/F whether i is even or not
 	// Exceptions are states associated with ⍸_1 where there are no previous ⍸ to take into account
 	// The states also include a Starting State (I) Final State (F) and an Error State (err)
-	Q := Ls∪(M3×M0)∪(M3×M0×M1)∪(M3×M0×M2)∪(M3×M0×M3)∪{"err","F","I"}
-	print Q
-	
+	Q := Ls∪(M3×{true,false}×{λ})∪(M3×{true,false}×M1)∪(M3×{true,false}×M2)
+			∪(M3×{true,false}×M3)∪{"err","F","I"}
+			
 	// The input alphabet is A union with separators ("#" and "!")
 	Σ := A ∪ {'#','!'}
 	// The output alphabet is the input alphabet union with special replacement "*"
@@ -66,80 +67,99 @@ g(x):= λ
 
 // Transition Function that receives a state and a next-to-read character
 function δ(q,σ) begin
-	var p1: Object
-	var p2: Object
-	var p3: Object
-	var c1: Object
-	var c2: Object
-	var c3: Object
-	var even: boolean
+	var c: String
+	c := ""
 	
 	// The initial states move depending on which character is read
 	if q = "I" ∧ σ∈Alph 
-		then print q return ⟨false,σ⟩
-			
-	elseif q = ⟨false,c1⟩ ∧ σ∈Alph 
-		then print q return ⟨false,⟨c1,σ⟩⟩
-	elseif q = ⟨false,⟨c1,c2⟩⟩ ∧ σ∈Alph 
-		then print q return ⟨false,⟨c1,c2,σ⟩⟩
+		then c := c+σ return ⟨λ,false,c⟩
+	// If the state is the Final State, anything after it will turn it into an Error
+	elseif q = "F" ∧ σ≠λ
+		then return "err"
+	// If the state is the Error State, it will always remain in said state
+	elseif q = "err"
+		then return "err"
+	// In any other case, it has to be an error
+	else
+		return "err"
+	end
+end
+
+function δ(⟨p,even,c⟩,σ) begin
+	var new_p: String
+	var new_c: String
+	new_p := ""
+	new_c := ""
+	
+	// States in ⍸_1 always have even=false and concatenate as long as there are not three characters in c
+	if p=λ ∧ even=false ∧ c.length()≠3 ∧ σ∈Alph 
+		then new_c := c+σ return ⟨p,false,new_c⟩
 	
 	// States that have read a full ⍸ move to specific states in which currents become previous
 	// If we read a ! then we change from odd to even or even to odd
-	elseif (q = ⟨even,⟨c1,c2,c3⟩⟩ ∨ q = ⟨⟨p1,p2,p3⟩,even,⟨c1,c2,c3⟩⟩) ∧ σ='!'
-		then print q return ⟨⟨c1,c2,c3⟩,!even⟩
+	elseif p≠λ ∧ c.length()=3 ∧ σ='!' 
+		then new_p:=c return ⟨new_p,!even,new_c⟩
 	// States that are fully-read, even and followed by a # go to the Final State
-	elseif q = ⟨⟨p1,p2,p3⟩,even,⟨c1,c2,c3⟩⟩ ∧ even = true ∧ σ='#'
-		then print q return "F"
+	elseif p≠λ ∧ c.length()=3 ∧ even=true ∧ σ='#' 
+		then return "F"
 	
-	// When we start reading a ⍸, states will go to the next one that has been read
-	elseif q = ⟨⟨p1,p2,p3⟩,even⟩ ∧ σ∈Alph 
-		then print q return ⟨⟨p1,p2,p3⟩,even,σ⟩
-	elseif q = ⟨⟨p1,p2,p3⟩,even,c1⟩ ∧ σ∈Alph 
-		then print q return ⟨⟨p1,p2,p3⟩,even,⟨c1,σ⟩⟩
-	elseif q = ⟨⟨p1,p2,p3⟩,even,⟨c1,c2⟩⟩ ∧ σ∈Alph 
-		then print q return ⟨⟨p1,p2,p3⟩,even,⟨c1,c2,σ⟩⟩		
+	// States in ⍸_i concatenate as long as there are not three characters in c
+	elseif p≠λ ∧ c.length()≠3 ∧ σ∈Alph
+		then new_c := c+σ return ⟨p,even,new_c⟩
 	
-	// If the state is the Final State, anything after it will turn it into an Error
-	elseif q = "F" ∧ σ≠λ
-		then print q return "err"
-	// If the state is the Error State, it will always remain in said state
-	elseif q = "err"
-		then print q return "err"
 	// In any other case, it has to be an error
 	else
-		print q return "err"
+		if p="bcb" then
+		print ⟨p,even,c⟩
+		print "simbolo: "+σ
+		end
+		return "err"
 	end
 end
+
 
 // Transition output function that prints during a transition
 function h(q,σ) begin
-	var p1: String
-	var p2: String
-	var p3: String
-	var c1: String
-	var c2: String
-	var c3: String
+	output := ""
+	var p: String
+	var c: String
 	var even: boolean
-	
-	// Once a fully-read state has transitioned, it should print the current under the following conditions:
-	// c1c2c3 if it is odd or even and p1p2p3≠c1c2c3
-	// * if it is even and p1p2p3=c1c2c3
-	// In both cases, it must be followed by the symbol ! or #
-	if (q = ⟨even,⟨c1,c2,c3⟩⟩ ∨ q = ⟨⟨p1,p2,p3⟩,even,⟨c1,c2,c3⟩⟩) then
-		if σ='!' ∧ even = false 
-			then return c1+c2+c3+σ
-		elseif (σ='!' ∨ σ='#') ∧ even = true then
-			if (p1=c1 ∧ p2=c2 ∧ p3=c3) 
-				then return '*'+σ
+
+	// Any special state transition will never print anything
+	if q = "I"
+		then return λ
+	elseif q = "err" 
+		then return λ
+	// General case of concatenating outputs
+	elseif |q|=3 then
+		p := q[0]
+		even := q[1]
+		c := q[2]
+		
+		// Once a fully-read state has transitioned, it should print the current under the following conditions:
+		// c1c2c3 if it is odd or even and p1p2p3≠c1c2c3
+		// * if it is even and p1p2p3=c1c2c3
+		// In both cases, it must be followed by the symbol ! or #
+		if σ='!' ∧ even = false ∧ c.length()=3
+			then output:= output+c+σ return output
+		elseif (σ='!' ∨ σ='#') ∧ even = true ∧ c.length()=3 then
+			if p=c 
+				then output:= output+"*"+σ return output
 			else
-				return c1+c2+c3+σ
+				output:= output+c+σ return output
 			end
+		// In any other case, do not concatenate anything to the output
+		else
+			return λ
 		end
-	// In any other case, do not print anything (returns the empty string)
+	
+	// When it reaches the Final State, it should print everything
+	elseif q = "F" 
+		then return λ
+			
+	// Any other case, it is an error
 	else
-		return λ
+		print " -> Cannot encode the string. Error Found!!"
 	end
 end
-
-
  

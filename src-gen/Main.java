@@ -54,29 +54,27 @@ public final class Main {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=27;
+      $line=15;
       if ($opEqualY($invokeField("length",args),0)) {
-        $line=27;
+        $line=16;
         Alph=$fix(GCollections.asSet('a','c','t'));
       }
       else {
-        $line=29;
+        $line=18;
         gold.structures.set.ISet $v1=$newSet();
         int $v3=$int(0);
         int $v4=$int($invokeMethod("length",((java.lang.String[])args)[$int(0)],new Object[]{}))-1;
         $v2:for (int i=$v3; i<=$v4; i++) {
           $v1.add($invokeMethod("charAt",((java.lang.String[])args)[$int(0)],new Object[]{i}));
         }
-        Alph=$fix($opDiffeY($v1,GCollections.asSet('$','#')));
+        Alph=$fix($opDiffeY($v1,GCollections.asSet('!','#')));
       }
-      $line=35;
+      $line=21;
       Object coder=$fix(Coder.createTransducer(Alph));
-      $line=37;
-      Object deCoder=$fix(Decoder.createTransducer(Alph));
-      $line=44;
-      System.out.println($message(new Object[]{$opAdditY($opAdditY($opAdditY($opAdditY("Input strings of the form xyz:W#. with x, y, over ",Alph),"and W  over   "),Alph),"* (end with an empty string)")}));
-      $line=47;
-      Utilities.testCodeDecode($cast(gold.structures.automaton.ITransducer.class,coder),$cast(gold.structures.automaton.ITransducer.class,deCoder));
+      $line=26;
+      System.out.println($message(new Object[]{$opAdditY("Input strings of the form w_1!w_2!...!w_2n-1!w_2n# with w_i over ",Alph)}));
+      $line=29;
+      Utilities.test($cast(gold.structures.automaton.IAutomaton.class,coder));
     }
     catch (Throwable $throwable) {
       $rethrow($throwable,Main.class,"main",$line);
