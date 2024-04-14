@@ -97,7 +97,7 @@ function δ(⟨p,even,c⟩,σ) begin
 	
 	// States that have read a full ⍸ move to specific states in which currents become previous
 	// If we read a ! then we change from odd to even or even to odd
-	elseif p≠λ ∧ c.length()=3 ∧ σ='!' 
+	elseif c.length()=3 ∧ σ='!' 
 		then new_p:=c return ⟨new_p,!even,new_c⟩
 	// States that are fully-read, even and followed by a # go to the Final State
 	elseif p≠λ ∧ c.length()=3 ∧ even=true ∧ σ='#' 
@@ -109,10 +109,6 @@ function δ(⟨p,even,c⟩,σ) begin
 	
 	// In any other case, it has to be an error
 	else
-		if p="bcb" then
-		print ⟨p,even,c⟩
-		print "simbolo: "+σ
-		end
 		return "err"
 	end
 end

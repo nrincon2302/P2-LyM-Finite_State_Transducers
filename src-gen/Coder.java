@@ -221,7 +221,7 @@ public final class Coder {
       }
       else {
         $line=100;
-        if (((!$opEqualY(p,"")&&$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opEqualY(\u03C3,'!'))) {
+        if (($opEqualY($invokeMethod("length",c,new Object[]{}),3)&&$opEqualY(\u03C3,'!'))) {
           $line=101;
           new_p=$cast(String.class,$fix(c));
           $line=101;
@@ -246,20 +246,13 @@ public final class Coder {
             }
             else {
               $line=112;
-              if ($opEqualY(p,"bcb")) {
-                $line=113;
-                System.out.println($message(new Object[]{GCollections.asList(p,even,c)}));
-                $line=114;
-                System.out.println($message(new Object[]{$opAdditY("simbolo: ",\u03C3)}));
-              }
-              $line=116;
               $result="err";
               if (true) break $try;
             }
           }
         }
       }
-      $line=118;
+      $line=114;
       $rethrow(new RuntimeException("The function \"\u03B4(\u27E8p,even,c\u27E9:java.lang.Iterable,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -271,88 +264,88 @@ public final class Coder {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=123;
+      $line=119;
       Object output=$fix("");
-      $line=124;
+      $line=120;
       String p=null;
       p=$defaultValue(String.class);
-      $line=125;
+      $line=121;
       String c=null;
       c=$defaultValue(String.class);
-      $line=126;
+      $line=122;
       Boolean even=null;
       even=$defaultValue(Boolean.class);
-      $line=129;
+      $line=125;
       if ($opEqualY(q,"I")) {
-        $line=130;
+        $line=126;
         $result="";
         if (true) break $try;
       }
       else {
-        $line=131;
+        $line=127;
         if ($opEqualY(q,"err")) {
-          $line=132;
+          $line=128;
           $result="";
           if (true) break $try;
         }
         else {
-          $line=134;
+          $line=130;
           if ($opEqualY($opAbsolY(q),3)) {
-            $line=135;
+            $line=131;
             p=$cast(String.class,$fix($getArrayValue(q,new Object[]{0})));
-            $line=136;
+            $line=132;
             even=$cast(Boolean.class,$fix($getArrayValue(q,new Object[]{1})));
-            $line=137;
+            $line=133;
             c=$cast(String.class,$fix($getArrayValue(q,new Object[]{2})));
-            $line=143;
+            $line=139;
             if ((($opEqualY(\u03C3,'!')&&$opEqualY(even,false))&&$opEqualY(((java.lang.String)c).length(),3))) {
-              $line=144;
+              $line=140;
               output=$fix($opAdditY($opAdditY(output,c),\u03C3));
-              $line=144;
+              $line=140;
               $result=output;
               if (true) break $try;
             }
             else {
-              $line=145;
+              $line=141;
               if ((($bool(($opEqualY(\u03C3,'!')||$opEqualY(\u03C3,'#')))&&$opEqualY(even,true))&&$opEqualY(((java.lang.String)c).length(),3))) {
-                $line=146;
+                $line=142;
                 if ($opEqualY(p,c)) {
-                  $line=147;
+                  $line=143;
                   output=$fix($opAdditY($opAdditY(output,"*"),\u03C3));
-                  $line=147;
+                  $line=143;
                   $result=output;
                   if (true) break $try;
                 }
                 else {
-                  $line=149;
+                  $line=145;
                   output=$fix($opAdditY($opAdditY(output,c),\u03C3));
-                  $line=149;
+                  $line=145;
                   $result=output;
                   if (true) break $try;
                 }
               }
               else {
-                $line=153;
+                $line=149;
                 $result="";
                 if (true) break $try;
               }
             }
           }
           else {
-            $line=157;
+            $line=153;
             if ($opEqualY(q,"F")) {
-              $line=158;
+              $line=154;
               $result="";
               if (true) break $try;
             }
             else {
-              $line=162;
+              $line=158;
               System.out.println($message(new Object[]{" -> Cannot encode the string. Error Found!!"}));
             }
           }
         }
       }
-      $line=164;
+      $line=160;
       $rethrow(new RuntimeException("The function \"h(q:Object,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
