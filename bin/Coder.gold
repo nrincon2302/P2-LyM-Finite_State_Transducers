@@ -17,16 +17,17 @@
 
 using gold.**
 
-var Alph
+var Alph // Global variable
+var Alfabeto
 procedure main(args:String[]) begin
 	// Reads the given alphabet or uses a cat basic alphabet for default
 	if args.length=0 then 
-		Alph:= {'a','c','t'}
+		Alfabeto := {'a','c','t'}
 	else
-		Alph := {args[0].charAt(i) | 0≤i<args[0].length()}\{'!','#'}
+		Alfabeto := {args[0].charAt(i) | 0≤i<args[0].length()}\{'!','#'}
     end
 	// Create a Transducer object over the alphabet given in the input
-	coder:=createTransducer(Alph)
+	coder:=createTransducer(Alfabeto)
 	print "Input strings of the form w_1!w_2!...!w_2n-1!w_2n# with w_i over " + Alph
 	// Utilities by default in Gold:
 	Utilities.test(coder)
@@ -40,6 +41,10 @@ function createTransducer(A):ITransducer begin
 	M2 := {""+p+q|p∈A,q∈A}			// Represents the reading of the first two characters in an ⍸
 	M3 := {""+p+q+r|p∈A,q∈A,r∈A}	// Represents the reading of the three characters in an ⍸
 	Ls := ({λ}×{false}×M1)∪({λ}×{false}×M2)∪({λ}×{false}×M3)	// Initial different states (⍸_1)
+	
+	
+	Alph := A // This line is for the Main to work properly for any input alphabet
+	
 	
 	// States are created in the following way:
 	// In general (p1p2p3, T/F, c1c2c3) where p_i are the characters of the previous ⍸, that is ⍸_{i-1},
@@ -106,7 +111,7 @@ function δ(⟨p,even,c⟩,σ) begin
 	// States in ⍸_i concatenate as long as there are not three characters in c
 	elseif p≠λ ∧ c.length()≠3 ∧ σ∈Alph
 		then new_c := c+σ return ⟨p,even,new_c⟩
-	
+			
 	// In any other case, it has to be an error
 	else
 		return "err"

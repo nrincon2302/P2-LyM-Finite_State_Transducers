@@ -18,7 +18,8 @@ procedure main(args:String[]) begin
 		Alph := {args[0].charAt(i) | 0≤i<args[0].length()}\{'!','#'}
     end
 	// Create a Transducer object over the alphabet given in the input
-	coder:= Coder.createTransducer(Alph)
+	coder := Coder.createTransducer(Alph)
+	//deCoder := Decoder.createTransducer(Alph)
 	
 	//GAutomataFrame.show(coder)
   	//GAutomataFrame.show(deCoder)
@@ -26,5 +27,4 @@ procedure main(args:String[]) begin
 	print "Input strings of the form w_1!w_2!...!w_2n-1!w_2n# with w_i over " + Alph
 	// Utilities by default in Gold:
 	//Utilities.testCodeDecode(coder, deCoder)
-	Utilities.test(coder)
 end

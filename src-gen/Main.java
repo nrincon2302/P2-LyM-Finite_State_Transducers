@@ -71,10 +71,8 @@ public final class Main {
       }
       $line=21;
       Object coder=$fix(Coder.createTransducer(Alph));
-      $line=26;
+      $line=27;
       System.out.println($message(new Object[]{$opAdditY("Input strings of the form w_1!w_2!...!w_2n-1!w_2n# with w_i over ",Alph)}));
-      $line=29;
-      Utilities.test($cast(gold.structures.automaton.IAutomaton.class,coder));
     }
     catch (Throwable $throwable) {
       $rethrow($throwable,Main.class,"main",$line);

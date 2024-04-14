@@ -1,23 +1,21 @@
+// ===============================
+// Proyecto 2 (ISIS1106 - Lenguajes y Máquinas)
+// Realizado por:
+// Carol Florido - 202111430
+// Nicolás Rincón - 202021963
+//
+// Basado en el trabajo original de Silvia Takahashi
+// ===============================
+
+// Finite State Transducer that implements a Decoder
+// Input: Strings of the form ρ_1!ρ_2!ρ_3!‥.!ρ_{2n-1}!ρ_{2n}# where ρ_i∈('a'‥.'d')* of length 3 or ρ_i="*" 
+//		   and ρ_i="*" can only happen if i is even. If an even ρ_i≠"*", that means ρ_i≠ρ_{i-1}.
+
+// Input: Strings of the form ⍸_1!⍸_2!⍸_3!‥.!⍸_{2n-1}!⍸_{2n}# where ⍸_i∈('a'‥.'d')* of length 3, ∀i:0≤i≤2n,
+//  		the three characters that compose any ⍸_i are not necessarily distinct, and ρ_i="*"⇒⍸_i=⍸_{i-1}.
+// ===============================
+
 using gold.**
-// -----------------------
-// Silvia Takahashi
-// UNIVERSIDAD DE LOS ANDES
-//------------------------------
-// 
-//  
-//  A finite state transducer that  decodes strings that were coded as follows:
-//    Input:   xyz:W'#
-//    where  x y and z are distinct
-//        xyx in Aˆ3
-//     W in A*
-// Output:  xyz:X#
-//  where X is obtained by replacing $ for all occurrences of xyz
-// It checks to make sure that xyz does not appear in X.
-//-----------------------
-//   By default  the alphabet is A  = {'a', 't', 'c'}, it can be changed invoking the program with a string  of symbols. 
-//   A  will contain all the the symbols in the parameter
-//  
-//  
 
 var  Alph 
 
