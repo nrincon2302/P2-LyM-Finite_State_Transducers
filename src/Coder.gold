@@ -127,7 +127,7 @@ function h(q,σ) begin
 	var even: boolean
 
 	// Any special state transition will never print anything
-	if q = "I"
+	if q = "I" ∨ q = "F"
 		then return λ
 	elseif q = "err" 
 		then return λ
@@ -153,14 +153,6 @@ function h(q,σ) begin
 		else
 			return λ
 		end
-	
-	// When it reaches the Final State, it should print everything
-	elseif q = "F" 
-		then return λ
-			
-	// Any other case, it is an error
-	else
-		print " -> Cannot encode the string. Error Found!!"
 	end
 end
  

@@ -279,7 +279,7 @@ public final class Coder {
       Boolean even=null;
       even=$defaultValue(Boolean.class);
       $line=130;
-      if ($opEqualY(q,"I")) {
+      if (($opEqualY(q,"I")||$opEqualY(q,"F"))) {
         $line=131;
         $result="";
         if (true) break $try;
@@ -334,21 +334,9 @@ public final class Coder {
               }
             }
           }
-          else {
-            $line=158;
-            if ($opEqualY(q,"F")) {
-              $line=159;
-              $result="";
-              if (true) break $try;
-            }
-            else {
-              $line=163;
-              System.out.println($message(new Object[]{" -> Cannot encode the string. Error Found!!"}));
-            }
-          }
         }
       }
-      $line=165;
+      $line=157;
       $rethrow(new RuntimeException("The function \"h(q:Object,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
