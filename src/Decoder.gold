@@ -9,7 +9,7 @@
 
 // Finite State Transducer that implements a Decoder
 // Input: Strings of the form ρ_1!ρ_2!ρ_3!‥.!ρ_{2n-1}!ρ_{2n}# where ρ_i∈('a'‥.'d')* of length 3 or ρ_i="*" 
-//		   and ρ_i="*" can only happen if i is even. If an even ρ_i≠"*", that means ρ_i≠ρ_{i-1}.
+//		   and ρ_i="" can only happen if i is even. If an even ρ_i≠"", that means ρ_i≠ρ_{i-1}.
 
 // Input: Strings of the form ⍸_1!⍸_2!⍸_3!‥.!⍸_{2n-1}!⍸_{2n}# where ⍸_i∈('a'‥.'d')* of length 3, ∀i:0≤i≤2n,
 //  		the three characters that compose any ⍸_i are not necessarily distinct, and ρ_i="*"⇒⍸_i=⍸_{i-1}.
@@ -71,6 +71,8 @@ function δ1(q,σ) begin
 	A := {'a','b','c','d'}
 	if q = "Start" and σ ∈ A then
 		return ⟨1, Ø ,Character.toString(σ)⟩
+	elseif q = "Start" and Character.toString(σ)= "#" then
+		return "Final"
 	else 
 		return "Error"
 	end
@@ -82,27 +84,32 @@ function δ1(⟨position, firstSet, secondSet⟩, reading) begin
 	
 	if |secondSet| = 1 and reading ∈ A then
 		return ⟨position, firstSet, secondSet+reading⟩
-		
+	
 	elseif |secondSet| = 2 and reading ∈ A then
 		return ⟨position, firstSet, secondSet+reading⟩
 		
 	elseif |secondSet| = 3 and reading = '!' then
 		
-		if  position =0 and firstSet = secondSet+reading then
+		if  position =0 and firstSet=secondSet+reading then
 			return "Error"
 		else
 			return ⟨position, firstSet,secondSet+reading⟩
 		end 
-	
-	elseif |secondSet| = 3 and reading = '#' then
-		return "Final"
+
+	elseif |secondSet| = 3 and reading = '#' and position≠1 then
+		if  position =0 and firstSet=secondSet+"!" then
+			return "Error"
+		else
+			return "Final"
+		end 
+
 	elseif |secondSet| = 4 and reading ∈ A then
 		return ⟨(position+1)%2, secondSet,Character.toString(reading)⟩
 	elseif |secondSet| = 4 and reading = '*' then
 		return ⟨(position+1)%2, secondSet,"Asterisk"⟩
 	elseif secondSet = "Asterisk" and reading = '!'  then
 		return ⟨position, firstSet,"Asterisk!"⟩
-	elseif secondSet = "Asterisk" and reading = '#'  then
+	elseif secondSet = "Asterisk" and reading = '#' and position≠1 then
 		return "Final"
 	elseif secondSet = "Asterisk!" and reading ∈ A then
 		return ⟨(position+1)%2, secondSet,Character.toString(reading)⟩
@@ -142,4 +149,3 @@ function g (⟨position, firstSet, secondSet⟩, reading) begin
 		return λ
 	end
 end
-
