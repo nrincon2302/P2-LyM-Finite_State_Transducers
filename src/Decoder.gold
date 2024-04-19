@@ -20,9 +20,7 @@ using gold.**
 var  Alph 
 
 procedure main(args:String[]) begin
- 	    
- 	  
-  
+ 	//Trial
 	if  args.length=0  then  Alph:= { 'a', 'c', 't'}
 	else	
 		Alph := {args[0].charAt(i) |  0 ≤ i < args[0].length()}\{'$','#'}
