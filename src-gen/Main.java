@@ -57,7 +57,7 @@ public final class Main {
       $line=15;
       if ($opEqualY($invokeField("length",args),0)) {
         $line=16;
-        Alph=$fix(GCollections.asSet('a','c','t'));
+        Alph=$fix(GCollections.asSet('a','b','c','d'));
       }
       else {
         $line=18;
@@ -71,8 +71,12 @@ public final class Main {
       }
       $line=21;
       Object coder=$fix(Coder.createTransducer(Alph));
+      $line=22;
+      Object deCoder=$fix(Decoder.createTransducer(Alph));
       $line=27;
       System.out.println($message(new Object[]{$opAdditY("Input strings of the form w_1!w_2!...!w_2n-1!w_2n# with w_i over ",Alph)}));
+      $line=29;
+      Utilities.testCodeDecode($cast(gold.structures.automaton.ITransducer.class,coder),$cast(gold.structures.automaton.ITransducer.class,deCoder));
     }
     catch (Throwable $throwable) {
       $rethrow($throwable,Main.class,"main",$line);

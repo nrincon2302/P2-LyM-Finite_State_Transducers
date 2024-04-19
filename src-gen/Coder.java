@@ -58,7 +58,7 @@ public final class Coder {
       $line=24;
       if ($opEqualY($invokeField("length",args),0)) {
         $line=25;
-        Alfabeto=$fix(GCollections.asSet('a','c','t'));
+        Alfabeto=$fix(GCollections.asSet('a','b','c','d'));
       }
       else {
         $line=27;

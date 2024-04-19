@@ -20,8 +20,10 @@ using gold.**
 var  Alph 
 
 procedure main(args:String[]) begin
- 	//Trial
-	if  args.length=0  then  Alph:= { 'a', 'c', 't'}
+ 	    
+ 	  
+  
+	if  args.length=0  then  Alph:= { 'a','b','c','d'}
 	else	
 		Alph := {args[0].charAt(i) |  0 ≤ i < args[0].length()}\{'$','#'}
     end
@@ -37,80 +39,107 @@ end
 
 
 
+function cutString(reading:String) begin
+	characters:char[] := reading.toCharArray()
+	len:Integer := 0
+	out:String := ""
+	
+	while len < 3 do
+		out := out+Character.toString((characters[len]))
+		len := len+1
+	end
+	return out
+end
 
  
 
 function createTransducer(A):ITransducer begin
-	Ls := A
-	M0 := {""}
-	M1 := {""+a|a∈Ls}
-	M2 := {""+a+b| a∈Ls,b∈Ls\{a}}
-	M3 := {""+a+b+c|a∈Ls,b∈Ls\{a},c∈Ls\{b,a}}
-	Q:=  {⟨s⟩|s∈M1∪ M2∪M3∪M0} ∪ {⟨s,d⟩|s∈M3, 0 ≤d≤ 2}∪{"E","F"}
-	print Q
+	States := {"Start","Final", "Error"} ∪ {⟨position, firstSet, secondSet⟩ | position in {0,1}, firstSet in  
+	{""+p+q+r+"!"|p∈A,q∈A,r∈A} ∪ {"Asterisk","Asterisk!", Ø}, secondSet in {""+p|p∈A} ∪ {""+p+q|p∈A,q∈A} ∪ 
+	{""+p+q+r|p∈A,q∈A,r∈A} ∪ {""+p+q+r+"!"|p∈A,q∈A,r∈A} ∪ {"Asterisk","Asterisk!"}}
 	
-	Σ:= A ∪  { '#',':'}
-	O := Σ  ∪  { '$'}
-	q₀:=⟨""⟩
-	F:={"F"} 
-	return GDeterministicTransducer(Q,O,Σ,q₀,F,δ1,g,h1)
-end
-g(x):= ""
-
-
-
- 
-
- 
- function δ1(q,σ) begin
-    var s:String
+	InAlphabet := {'a','b','c','d','!','#','*'}
+	OutAlphabet := {'a','b','c','d','!','#'}
+	initState := "Start"
+	finalStates := {"Final"}
 	
-	if q = "E" or q ="F" then
-		return "E"
-    elseif |q| = 1 then
-      s:= q[0]
-   	  if s.length()  = 0  and σ≠ '#' and σ≠ ':'   and σ≠ '$' then
-        return   	⟨""+σ⟩
-      elseif s.length()  = 1 and σ≠s.charAt(0)   and σ≠ '#' and σ≠ ':' and σ≠ '$' then
-        return   	⟨""+s+σ⟩
-      elseif s.length()  = 2 and σ≠s.charAt(0) and σ≠s.charAt(1) and σ≠ '#'  and σ≠ ':' and σ≠ '$'  then
-        return   	⟨""+s+σ⟩
-      elseif s.length() = 3  and σ = ':' then
-   	      return   	⟨s,0⟩
-   	   else 
-   	    	return "E"
-   	   end
-   	else // |q| = 2
-   	  s,p:= q[0],q[1]
-   	  if  σ = ':' then return   	"E" 
-   	  elseif  σ = '#' then return   	"F"
-   	  elseif  σ = '$' then return   	⟨s,0⟩
-   	  
-   	  elseif p=0 and σ=s.charAt(0) then return ⟨s,1⟩
-   	  elseif p=0  then return ⟨s,0⟩
-   	  elseif p=1 and  σ=s.charAt(0) then return ⟨s,1⟩
-   	  elseif p=1 and  σ=s.charAt(1) then return ⟨s,2⟩
-   	  elseif p=1  then return ⟨s,0⟩
-   	  elseif p=2 and  σ=s.charAt(0) then return ⟨s,1⟩
-   	  elseif p=2 and  σ=s.charAt(2) then return "E"
-   	
-   	 else return	⟨s,0⟩
-   	  end
+	return GDeterministicTransducer(States,InAlphabet,OutAlphabet,initState,finalStates,δ1, h1,g)
 end
+
+
+function δ1(q,σ) begin
+	A := {'a','b','c','d'}
+	if q = "Start" and σ ∈ A then
+		return ⟨1, Ø ,Character.toString(σ)⟩
+	else 
+		return "Error"
+	end
+	
 end
- 
-function h1(q,σ) begin
-    var s:String
-	if q = "E" or q ="F" then
-		return ""
-    elseif  |q| = 2 then
-   	  s,p:= q[0],q[1]
-   	  if  σ='#' then return  "#"
-   	  elseif  σ='$' then return s
-   	  elseif p=2 and  σ=s.charAt(2) then return ""
-   	  else return  σ
-   	  end
-   	 elseif σ='$' then  return ""
-   	 else return σ
+
+function δ1(⟨position, firstSet, secondSet⟩, reading) begin
+	A := {'a','b','c','d'}
+	
+	if |secondSet| = 1 and reading ∈ A then
+		return ⟨position, firstSet, secondSet+reading⟩
+		
+	elseif |secondSet| = 2 and reading ∈ A then
+		return ⟨position, firstSet, secondSet+reading⟩
+		
+	elseif |secondSet| = 3 and reading = '!' then
+		
+		if  position =0 and firstSet = secondSet+reading then
+			return "Error"
+		else
+			return ⟨position, firstSet,secondSet+reading⟩
+		end 
+	
+	elseif |secondSet| = 3 and reading = '#' then
+		return "Final"
+	elseif |secondSet| = 4 and reading ∈ A then
+		return ⟨(position+1)%2, secondSet,Character.toString(reading)⟩
+	elseif |secondSet| = 4 and reading = '*' then
+		return ⟨(position+1)%2, secondSet,"Asterisk"⟩
+	elseif secondSet = "Asterisk" and reading = '!'  then
+		return ⟨position, firstSet,"Asterisk!"⟩
+	elseif secondSet = "Asterisk" and reading = '#'  then
+		return "Final"
+	elseif secondSet = "Asterisk!" and reading ∈ A then
+		return ⟨(position+1)%2, secondSet,Character.toString(reading)⟩
+	else
+		return "Error"
+	end
 end
+	
+
+function h1 (state) begin
+	return λ
 end
+
+function h1 (⟨position, firstSet, secondSet⟩) begin
+	return λ
+end
+
+function g (state, reading) begin
+	return λ
+end
+
+function g (⟨position, firstSet, secondSet⟩, reading) begin
+	A := {'a','b','c','d'}
+	if |secondSet| = 2 and reading ∈ A then
+		return secondSet+reading
+	elseif |secondSet| = 3 and reading = '!' then
+		return reading
+	elseif |secondSet| = 3 and reading = '#' then
+		return reading
+	elseif |secondSet| = 4 and reading = '*' then
+		 return cutString(secondSet)
+	elseif secondSet = "Asterisk" and reading = '!'  then
+		return reading
+	elseif secondSet = "Asterisk" and reading = '#'  then
+		return reading
+	else
+		return λ
+	end
+end
+

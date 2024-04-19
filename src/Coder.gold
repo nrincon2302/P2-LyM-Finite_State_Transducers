@@ -20,9 +20,9 @@ using gold.**
 var Alph // Global variable
 var Alfabeto
 procedure main(args:String[]) begin
-	// Reads the given alphabet or uses a cat basic alphabet for default
+	// Reads the given alphabet or uses a abcd basic alphabet for default
 	if args.length=0 then 
-		Alfabeto := {'a','c','t'}
+		Alfabeto := {'a','b','c','d'}
 	else
 		Alfabeto := {args[0].charAt(i) | 0≤i<args[0].length()}\{'!','#'}
     end
