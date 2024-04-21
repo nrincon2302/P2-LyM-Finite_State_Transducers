@@ -226,79 +226,79 @@ public final class Decoder {
         if (true) break $try;
       }
       else {
-        $line=88;
+        $line=89;
         if (($opEqualY($opAbsolY(secondSet),2)&&$opMembrY(reading,A))) {
-          $line=89;
+          $line=90;
           $result=GCollections.asList(position,firstSet,$opAdditY(secondSet,reading));
           if (true) break $try;
         }
         else {
-          $line=91;
+          $line=92;
           if (($opEqualY($opAbsolY(secondSet),3)&&$opEqualY(reading,'!'))) {
-            $line=93;
+            $line=94;
             if (($opEqualY(position,0)&&$opEqualY(firstSet,$opAdditY(secondSet,reading)))) {
-              $line=94;
+              $line=95;
               $result="Error";
               if (true) break $try;
             }
             else {
-              $line=96;
+              $line=97;
               $result=GCollections.asList(position,firstSet,$opAdditY(secondSet,reading));
               if (true) break $try;
             }
           }
           else {
-            $line=99;
+            $line=100;
             if ((($opEqualY($opAbsolY(secondSet),3)&&$opEqualY(reading,'#'))&&!$opEqualY(position,1))) {
-              $line=100;
+              $line=101;
               if (($opEqualY(position,0)&&$opEqualY(firstSet,$opAdditY(secondSet,"!")))) {
-                $line=101;
+                $line=102;
                 $result="Error";
                 if (true) break $try;
               }
               else {
-                $line=103;
+                $line=104;
                 $result="Final";
                 if (true) break $try;
               }
             }
             else {
-              $line=106;
+              $line=107;
               if (($opEqualY($opAbsolY(secondSet),4)&&$opMembrY(reading,A))) {
-                $line=107;
+                $line=108;
                 $result=GCollections.asList($opModulY($opAdditY(position,1),2),secondSet,Character.toString($cast(char.class,reading)));
                 if (true) break $try;
               }
               else {
-                $line=108;
-                if (($opEqualY($opAbsolY(secondSet),4)&&$opEqualY(reading,'*'))) {
-                  $line=109;
+                $line=109;
+                if ((($opEqualY($opAbsolY(secondSet),4)&&$opEqualY(reading,'*'))&&!$opEqualY(position,0))) {
+                  $line=110;
                   $result=GCollections.asList($opModulY($opAdditY(position,1),2),secondSet,"Asterisk");
                   if (true) break $try;
                 }
                 else {
-                  $line=110;
+                  $line=111;
                   if (($opEqualY(secondSet,"Asterisk")&&$opEqualY(reading,'!'))) {
-                    $line=111;
+                    $line=112;
                     $result=GCollections.asList(position,firstSet,"Asterisk!");
                     if (true) break $try;
                   }
                   else {
-                    $line=112;
+                    $line=113;
                     if ((($opEqualY(secondSet,"Asterisk")&&$opEqualY(reading,'#'))&&!$opEqualY(position,1))) {
-                      $line=113;
+                      $line=114;
                       $result="Final";
                       if (true) break $try;
                     }
                     else {
-                      $line=114;
+                      $line=115;
                       if (($opEqualY(secondSet,"Asterisk!")&&$opMembrY(reading,A))) {
-                        $line=115;
+                        $line=116;
                         $result=GCollections.asList($opModulY($opAdditY(position,1),2),secondSet,Character.toString($cast(char.class,reading)));
                         if (true) break $try;
                       }
                       else {
-                        $line=117;
+                        $line=118;
                         $result="Error";
                         if (true) break $try;
                       }
@@ -310,7 +310,7 @@ public final class Decoder {
           }
         }
       }
-      $line=119;
+      $line=120;
       $rethrow(new RuntimeException("The function \"\u03B41(\u27E8position,firstSet,secondSet\u27E9:java.lang.Iterable,reading:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -322,10 +322,10 @@ public final class Decoder {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=123;
+      $line=124;
       $result="";
       if (true) break $try;
-      $line=124;
+      $line=125;
       $rethrow(new RuntimeException("The function \"h1(state:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -341,10 +341,10 @@ public final class Decoder {
       Object position=$v20.next();
       Object firstSet=$v20.next();
       Object secondSet=$v20.next();
-      $line=127;
+      $line=128;
       $result="";
       if (true) break $try;
-      $line=128;
+      $line=129;
       $rethrow(new RuntimeException("The function \"h1(\u27E8position,firstSet,secondSet\u27E9:java.lang.Iterable)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -356,10 +356,18 @@ public final class Decoder {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=131;
-      $result="";
-      if (true) break $try;
       $line=132;
+      if (($opEqualY(state,"Start")&&$opEqualY(Character.toString($cast(char.class,reading)),"#"))) {
+        $line=133;
+        $result=reading;
+        if (true) break $try;
+      }
+      else {
+        $line=135;
+        $result="";
+        if (true) break $try;
+      }
+      $line=137;
       $rethrow(new RuntimeException("The function \"g(state:Object,reading:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -375,51 +383,51 @@ public final class Decoder {
       Object position=$v22.next();
       Object firstSet=$v22.next();
       Object secondSet=$v22.next();
-      $line=135;
+      $line=140;
       Object A=$fix(GCollections.asSet('a','b','c','d'));
-      $line=136;
+      $line=141;
       if (($opEqualY($opAbsolY(secondSet),2)&&$opMembrY(reading,A))) {
-        $line=137;
+        $line=142;
         $result=$opAdditY(secondSet,reading);
         if (true) break $try;
       }
       else {
-        $line=138;
+        $line=143;
         if (($opEqualY($opAbsolY(secondSet),3)&&$opEqualY(reading,'!'))) {
-          $line=139;
+          $line=144;
           $result=reading;
           if (true) break $try;
         }
         else {
-          $line=140;
+          $line=145;
           if (($opEqualY($opAbsolY(secondSet),3)&&$opEqualY(reading,'#'))) {
-            $line=141;
+            $line=146;
             $result=reading;
             if (true) break $try;
           }
           else {
-            $line=142;
+            $line=147;
             if (($opEqualY($opAbsolY(secondSet),4)&&$opEqualY(reading,'*'))) {
-              $line=143;
+              $line=148;
               $result=Decoder.cutString($cast(java.lang.String.class,secondSet));
               if (true) break $try;
             }
             else {
-              $line=144;
+              $line=149;
               if (($opEqualY(secondSet,"Asterisk")&&$opEqualY(reading,'!'))) {
-                $line=145;
+                $line=150;
                 $result=reading;
                 if (true) break $try;
               }
               else {
-                $line=146;
+                $line=151;
                 if (($opEqualY(secondSet,"Asterisk")&&$opEqualY(reading,'#'))) {
-                  $line=147;
+                  $line=152;
                   $result=reading;
                   if (true) break $try;
                 }
                 else {
-                  $line=149;
+                  $line=154;
                   $result="";
                   if (true) break $try;
                 }
@@ -428,7 +436,7 @@ public final class Decoder {
           }
         }
       }
-      $line=151;
+      $line=156;
       $rethrow(new RuntimeException("The function \"g(\u27E8position,firstSet,secondSet\u27E9:java.lang.Iterable,reading:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {

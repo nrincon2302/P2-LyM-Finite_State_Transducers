@@ -84,7 +84,8 @@ function δ1(⟨position, firstSet, secondSet⟩, reading) begin
 	
 	if |secondSet| = 1 and reading ∈ A then
 		return ⟨position, firstSet, secondSet+reading⟩
-	
+		
+		
 	elseif |secondSet| = 2 and reading ∈ A then
 		return ⟨position, firstSet, secondSet+reading⟩
 		
@@ -105,7 +106,7 @@ function δ1(⟨position, firstSet, secondSet⟩, reading) begin
 
 	elseif |secondSet| = 4 and reading ∈ A then
 		return ⟨(position+1)%2, secondSet,Character.toString(reading)⟩
-	elseif |secondSet| = 4 and reading = '*' then
+	elseif |secondSet| = 4 and reading = '*' and position≠0 then
 		return ⟨(position+1)%2, secondSet,"Asterisk"⟩
 	elseif secondSet = "Asterisk" and reading = '!'  then
 		return ⟨position, firstSet,"Asterisk!"⟩
@@ -128,7 +129,11 @@ function h1 (⟨position, firstSet, secondSet⟩) begin
 end
 
 function g (state, reading) begin
-	return λ
+	if state = "Start" and Character.toString(reading)= "#" then
+		return reading
+	else
+		return λ
+	end
 end
 
 function g (⟨position, firstSet, secondSet⟩, reading) begin
