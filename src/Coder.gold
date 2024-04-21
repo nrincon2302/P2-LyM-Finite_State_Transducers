@@ -78,6 +78,8 @@ function δ(q,σ) begin
 	// The initial states move depending on which character is read
 	if q = "I" ∧ σ∈Alph 
 		then c := c+σ return ⟨λ,false,c⟩
+	elseif q = "I" ∧ σ='#' 
+		then return "F"
 	// If the state is the Final State, anything after it will turn it into an Error
 	elseif q = "F" ∧ σ≠λ
 		then return "err"
@@ -127,10 +129,13 @@ function h(q,σ) begin
 	var even: boolean
 
 	// Any special state transition will never print anything
-	if q = "I" ∨ q = "F"
+	if (q = "I" ∧ σ ≠ '#') ∨ q = "F"
 		then return λ
 	elseif q = "err" 
 		then return λ
+	// Only exception when there are n=0, which means only the "#" was read
+	elseif q = "I" ∧ σ = '#'
+		then return "#"
 	// General case of concatenating outputs
 	elseif |q|=3 then
 		p := q[0]

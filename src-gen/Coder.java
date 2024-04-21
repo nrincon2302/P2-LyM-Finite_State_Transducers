@@ -168,27 +168,35 @@ public final class Coder {
         if (true) break $try;
       }
       else {
-        $line=82;
-        if (($opEqualY(q,"F")&&!$opEqualY(\u03C3,""))) {
-          $line=83;
-          $result="err";
+        $line=81;
+        if (($opEqualY(q,"I")&&$opEqualY(\u03C3,'#'))) {
+          $line=82;
+          $result="F";
           if (true) break $try;
         }
         else {
-          $line=85;
-          if ($opEqualY(q,"err")) {
-            $line=86;
+          $line=84;
+          if (($opEqualY(q,"F")&&!$opEqualY(\u03C3,""))) {
+            $line=85;
             $result="err";
             if (true) break $try;
           }
           else {
-            $line=89;
-            $result="err";
-            if (true) break $try;
+            $line=87;
+            if ($opEqualY(q,"err")) {
+              $line=88;
+              $result="err";
+              if (true) break $try;
+            }
+            else {
+              $line=91;
+              $result="err";
+              if (true) break $try;
+            }
           }
         }
       }
-      $line=91;
+      $line=93;
       $rethrow(new RuntimeException("The function \"\u03B4(q:Object,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -204,58 +212,58 @@ public final class Coder {
       Object p=$v12.next();
       Object even=$v12.next();
       Object c=$v12.next();
-      $line=94;
+      $line=96;
       String new_p=null;
       new_p=$defaultValue(String.class);
-      $line=95;
+      $line=97;
       String new_c=null;
       new_c=$defaultValue(String.class);
-      $line=96;
+      $line=98;
       new_p=$cast(String.class,$fix(""));
-      $line=97;
+      $line=99;
       new_c=$cast(String.class,$fix(""));
-      $line=100;
+      $line=102;
       if (((($opEqualY(p,"")&&$opEqualY(even,false))&&!$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opMembrY(\u03C3,Alph))) {
-        $line=101;
+        $line=103;
         new_c=$cast(String.class,$fix($opAdditY(c,\u03C3)));
-        $line=101;
+        $line=103;
         $result=GCollections.asList(p,false,new_c);
         if (true) break $try;
       }
       else {
-        $line=105;
+        $line=107;
         if (($opEqualY($invokeMethod("length",c,new Object[]{}),3)&&$opEqualY(\u03C3,'!'))) {
-          $line=106;
+          $line=108;
           new_p=$cast(String.class,$fix(c));
-          $line=106;
+          $line=108;
           $result=GCollections.asList(new_p,!$bool(even),new_c);
           if (true) break $try;
         }
         else {
-          $line=108;
+          $line=110;
           if ((((!$opEqualY(p,"")&&$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opEqualY(even,true))&&$opEqualY(\u03C3,'#'))) {
-            $line=109;
+            $line=111;
             $result="F";
             if (true) break $try;
           }
           else {
-            $line=112;
+            $line=114;
             if (((!$opEqualY(p,"")&&!$opEqualY($invokeMethod("length",c,new Object[]{}),3))&&$opMembrY(\u03C3,Alph))) {
-              $line=113;
+              $line=115;
               new_c=$cast(String.class,$fix($opAdditY(c,\u03C3)));
-              $line=113;
+              $line=115;
               $result=GCollections.asList(p,even,new_c);
               if (true) break $try;
             }
             else {
-              $line=117;
+              $line=119;
               $result="err";
               if (true) break $try;
             }
           }
         }
       }
-      $line=119;
+      $line=121;
       $rethrow(new RuntimeException("The function \"\u03B4(\u27E8p,even,c\u27E9:java.lang.Iterable,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
@@ -267,76 +275,84 @@ public final class Coder {
     int $line=0;
     Object $result=null;
     $try:try {
-      $line=124;
+      $line=126;
       Object output=$fix("");
-      $line=125;
+      $line=127;
       String p=null;
       p=$defaultValue(String.class);
-      $line=126;
+      $line=128;
       String c=null;
       c=$defaultValue(String.class);
-      $line=127;
+      $line=129;
       Boolean even=null;
       even=$defaultValue(Boolean.class);
-      $line=130;
-      if (($opEqualY(q,"I")||$opEqualY(q,"F"))) {
-        $line=131;
+      $line=132;
+      if (($bool(($opEqualY(q,"I")&&!$opEqualY(\u03C3,'#')))||$opEqualY(q,"F"))) {
+        $line=133;
         $result="";
         if (true) break $try;
       }
       else {
-        $line=132;
+        $line=134;
         if ($opEqualY(q,"err")) {
-          $line=133;
+          $line=135;
           $result="";
           if (true) break $try;
         }
         else {
-          $line=135;
-          if ($opEqualY($opAbsolY(q),3)) {
-            $line=136;
-            p=$cast(String.class,$fix($getArrayValue(q,new Object[]{0})));
-            $line=137;
-            even=$cast(Boolean.class,$fix($getArrayValue(q,new Object[]{1})));
+          $line=137;
+          if (($opEqualY(q,"I")&&$opEqualY(\u03C3,'#'))) {
             $line=138;
-            c=$cast(String.class,$fix($getArrayValue(q,new Object[]{2})));
-            $line=144;
-            if ((($opEqualY(\u03C3,'!')&&$opEqualY(even,false))&&$opEqualY(((java.lang.String)c).length(),3))) {
-              $line=145;
-              output=$fix($opAdditY($opAdditY(output,c),\u03C3));
-              $line=145;
-              $result=output;
-              if (true) break $try;
-            }
-            else {
-              $line=146;
-              if ((($bool(($opEqualY(\u03C3,'!')||$opEqualY(\u03C3,'#')))&&$opEqualY(even,true))&&$opEqualY(((java.lang.String)c).length(),3))) {
-                $line=147;
-                if ($opEqualY(p,c)) {
-                  $line=148;
-                  output=$fix($opAdditY($opAdditY(output,"*"),\u03C3));
-                  $line=148;
-                  $result=output;
-                  if (true) break $try;
-                }
-                else {
-                  $line=150;
-                  output=$fix($opAdditY($opAdditY(output,c),\u03C3));
-                  $line=150;
-                  $result=output;
-                  if (true) break $try;
-                }
+            $result="#";
+            if (true) break $try;
+          }
+          else {
+            $line=140;
+            if ($opEqualY($opAbsolY(q),3)) {
+              $line=141;
+              p=$cast(String.class,$fix($getArrayValue(q,new Object[]{0})));
+              $line=142;
+              even=$cast(Boolean.class,$fix($getArrayValue(q,new Object[]{1})));
+              $line=143;
+              c=$cast(String.class,$fix($getArrayValue(q,new Object[]{2})));
+              $line=149;
+              if ((($opEqualY(\u03C3,'!')&&$opEqualY(even,false))&&$opEqualY(((java.lang.String)c).length(),3))) {
+                $line=150;
+                output=$fix($opAdditY($opAdditY(output,c),\u03C3));
+                $line=150;
+                $result=output;
+                if (true) break $try;
               }
               else {
-                $line=154;
-                $result="";
-                if (true) break $try;
+                $line=151;
+                if ((($bool(($opEqualY(\u03C3,'!')||$opEqualY(\u03C3,'#')))&&$opEqualY(even,true))&&$opEqualY(((java.lang.String)c).length(),3))) {
+                  $line=152;
+                  if ($opEqualY(p,c)) {
+                    $line=153;
+                    output=$fix($opAdditY($opAdditY(output,"*"),\u03C3));
+                    $line=153;
+                    $result=output;
+                    if (true) break $try;
+                  }
+                  else {
+                    $line=155;
+                    output=$fix($opAdditY($opAdditY(output,c),\u03C3));
+                    $line=155;
+                    $result=output;
+                    if (true) break $try;
+                  }
+                }
+                else {
+                  $line=159;
+                  $result="";
+                  if (true) break $try;
+                }
               }
             }
           }
         }
       }
-      $line=157;
+      $line=162;
       $rethrow(new RuntimeException("The function \"h(q:Object,\u03C3:Object)\" did not return a value."));
     }
     catch (Throwable $throwable) {
