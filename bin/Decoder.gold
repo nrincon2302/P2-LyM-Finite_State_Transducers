@@ -85,7 +85,6 @@ function δ1(⟨position, firstSet, secondSet⟩, reading) begin
 	if |secondSet| = 1 and reading ∈ A then
 		return ⟨position, firstSet, secondSet+reading⟩
 		
-		
 	elseif |secondSet| = 2 and reading ∈ A then
 		return ⟨position, firstSet, secondSet+reading⟩
 		
