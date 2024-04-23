@@ -4,7 +4,9 @@ Este repositorio contiene un programa GOLD que compila un par Codificador-Decodi
 
 El Codificador recibe una cadena sobre el alfabeto {a,b,c,d} separada en un número par de subcadenas de longitud 3 divididas por el símbolo '!' y finalizada con el símbolo '#'. A la salida, imprime una cadena en la cual las subcadenas pares que coincidan con la subcadena impar inmediatamente anterior son reemplazadas por el símbolo '*'. Las subcadenas pares no repetidas y las impares pasan sin modificación por el Codificador.
 
-El Decodificador recibe la cadena salida del Codificador y realiza el proceso inverso. Es decir, retorna la cadena original a partir de una entrada que puede tener subcadenas pares como '*'. En ambos casos, los autómatas verifican la paridad de las subcadenas y la longitud 3 de cada una. En el caso del Decodificador, también se verifica que sólo subcadenas pares puedan ser '*' y que no haya inconsistencias respecto a la repetición en posiciones pares o la presencia de un asterisco en posiciones impares.
+El Decodificador recibe la cadena salida del Codificador y realiza el proceso inverso. Es decir, retorna la cadena original a partir de una entrada que puede tener subcadenas pares como '*'. En ambos casos, los autómatas verifican la paridad de las subcadenas y la longitud 3 de cada una. 
+
+En el caso del Decodificador, también se verifica que sólo subcadenas pares puedan ser '*' y que no haya inconsistencias respecto a la repetición en posiciones pares o la presencia de un asterisco en posiciones impares.
 
 ## Cómo Ejecutar
 
@@ -32,4 +34,5 @@ Este programa tiene un alfabeto {a,b,c,d} base predefinido. Sin embargo, el Codi
 ## Autores
 
 Carol Florido - 202111430
+\
 Nicolás Rincón - 202021963
