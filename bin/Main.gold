@@ -11,7 +11,7 @@ using gold.**
 
 var Alph
 procedure main(args:String[]) begin
-	// Reads the given alphabet or uses a cat basic alphabet for default
+	// Reads the given alphabet or uses a abcd basic alphabet for default
 	if args.length=0 then 
 		Alph:= {'a','b','c','d'}
 	else
